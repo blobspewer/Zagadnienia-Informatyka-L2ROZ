@@ -42,7 +42,7 @@ class ScheduleManager:
             }
             print("Harmonogram wczytany z pliku:", self.file_name)
         except FileNotFoundError:
-            print("Nie znaleziono pliku harmonogramu. Tworzenie nowego pliku.")
+            print("Nie znaleziono pliku harmonogramu. Plik będzie stworzony po dodaniu lekcji.")
         except json.JSONDecodeError as e:
             print(f"Błąd dekodowania pliku JSON: {e}. Tworzenie pustego harmonogramu.")
         except Exception as e:
@@ -55,7 +55,7 @@ class ScheduleManager:
             self.save_schedule()
             print(f"Dodano lekcje: {subject} o godzinie {time} w {day}.")
         else:
-            print("Nieprawidłowy dzień tygodnia!")
+            print("Nieprawidłowy dzień tygodnia.")
 
     def update_lesson(self, day, old_time, new_time, new_subject):
         """Aktualizuje przedmiot w harmonogramie"""
@@ -68,7 +68,7 @@ class ScheduleManager:
                     return
             print(f"Nie znaleziono lekcji o godzinie {old_time} w {day}.")
         else:
-            print("Nieprawidłowy dzień tygodnia!")
+            print("Nieprawidłowy dzień tygodnia.")
 
     def reset_schedule(self):
         """Resetuje cały harmonogram do pustego"""
@@ -115,8 +115,8 @@ class ScheduleManager:
 
             elif choice == "2":
                 day = input("Podaj dzień tygodnia: ").capitalize()
-                old_time = input("Podaj godzinę lekcji do aktualizacji (np. 08:00): ")
-                new_time = input("Podaj nową godzinę (np. 09:00): ")
+                old_time = input("Podaj godzinę lekcji do aktualizacji (np. 09:00): ")
+                new_time = input("Podaj nową godzinę (np. 10:00): ")
                 new_subject = input("Podaj nową nazwę przedmiotu: ")
                 self.update_lesson(day, old_time, new_time, new_subject)
 
@@ -124,8 +124,8 @@ class ScheduleManager:
                 self.view_schedule()
 
             elif choice == "4":
-                confirm = input("Czy na pewno chcesz zresetować harmonogram? (tak/nie): ")
-                if confirm.lower() == "tak":
+                confirm = input("Czy na pewno chcesz zresetować harmonogram? (y/n): ")
+                if confirm.lower() == "y":
                     self.reset_schedule()
                 else:
                     print("Resetowanie harmonogramu anulowane.")
@@ -135,7 +135,7 @@ class ScheduleManager:
                 break
 
             else:
-                print("Nieprawidłowy wybór. Spróbuj ponownie.")
+                print("Nieistniejący wybór. Spróbuj ponownie.")
 
 
 # Uruchomienie programu
