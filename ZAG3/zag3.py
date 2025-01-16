@@ -3,7 +3,6 @@ import os
 
 class ScheduleManager:
     def __init__(self):
-        # Harmonogram jako słownik dni tygodnia
         self.schedule = {
             "1": [],
             "2": [],
@@ -13,14 +12,12 @@ class ScheduleManager:
             "6": [],
             "7": []
         }
-        # Użycie katalogu, w którym znajduje się skrypt, do zapisu pliku JSON
         self.file_name = os.path.join(os.path.dirname(__file__), "schedule.json")
         self.load_schedule()
 
     def save_schedule(self):
         """Zapisuje harmonogram do pliku JSON"""
         try:
-            # Konwersja krotek na listy, aby były zgodne z JSON
             serializable_schedule = {
                 day: list(map(list, lessons)) for day, lessons in self.schedule.items()
             }
@@ -35,7 +32,6 @@ class ScheduleManager:
         try:
             with open(self.file_name, "r") as file:
                 serializable_schedule = json.load(file)
-            # Przywracanie krotek z list
             self.schedule = {
                 day: [tuple(lesson) for lesson in lessons]
                 for day, lessons in serializable_schedule.items()
@@ -137,8 +133,6 @@ class ScheduleManager:
             else:
                 print("Nieistniejący wybór. Spróbuj ponownie.")
 
-
-# Uruchomienie programu
 if __name__ == "__main__":
     manager = ScheduleManager()
     manager.run()
